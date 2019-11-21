@@ -28,3 +28,6 @@ steps:
   inputs:
     command: 'build'
     Dockerfile: '**/Dockerfile'
+- task: Docker@2
+  inputs:
+    command: 'push'
