@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_DIR">
+            logs
+        </Property>
+        <Property name="LOG_FILENAME">
+            devday2019app
+        </Property>
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MM-dd} - %d{HH:mm:ss.SSS} - ${hostName}/${bundle:application:server.port} - ${bundle:application:spring.application.name} - ${bundle:application:server.port} - %level - %120c | %msg%n
+        </Property>
+    </Properties>
+ 
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+        
+        <Console name="errConsole" target="SYSTEM_OUT" follow="true">
+            <ThresholdFilter level="ERROR"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+         
+        <RollingFile name="errorLog" fileName="${LOG_DIR}/${LOG_FILENAME}-errors.log"
+            filePattern="${LOG_DIR}/${LOG_FILENAME}-errors-%d{yyyy-MM-dd}.log">
+            <ThresholdFilter level="ERROR"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingFile>
+         
+        <RollingFile name="exceptDebugLog" fileName="${LOG_DIR}/${LOG_FILENAME}.log"
+            filePattern="${LOG_DIR}/${LOG_FILENAME}-%d{yyyy-MM-dd}.log" >
+            <ThresholdFilter level="INFO"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingFile>
+    </Appenders>
+ 
+    <Loggers>
+        <Logger name="org.springframework" level="INFO">
+            <AppenderRef ref="Console"/>
+        </Logger>
+    
+        <Root level="all">
+            <AppenderRef ref="errorLog" />
+            <AppenderRef ref="exceptDebugLog"  />
+            <AppenderRef ref="errConsole"/>
+        </Root>
+    </Loggers>
+</Configuration>

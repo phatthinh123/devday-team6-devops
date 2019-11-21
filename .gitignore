@@ -1,0 +1,7 @@
+**/logs
+target/
+.vscode/
+.settings/
+.project
+.classpath
+.factorypath
