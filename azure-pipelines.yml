@@ -30,4 +30,5 @@ steps:
     Dockerfile: '**/Dockerfile'
 - task: Docker@2
   inputs:
+    repository: team6registry.azurecr.io
     command: 'push'
