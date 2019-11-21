@@ -24,10 +24,7 @@ steps:
     echo Starting the build
     mvn package
   displayName: 'Build with Maven'
-
 - task: Docker@2
   inputs:
-    containerRegistry: 'team6registry.azurecr.io' 
-    repository: 'devday'
-    command: 'buildAndPush'
+    command: 'build'
     Dockerfile: '**/Dockerfile'
